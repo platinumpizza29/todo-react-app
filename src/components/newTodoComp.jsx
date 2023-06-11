@@ -1,24 +1,28 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import supabase from "../services/supabase";
+import moment from "moment";
 
 export default function NewTodoComp() {
   const navigate = useNavigate();
+  const dateTime = moment();
+
+  // Separate the date component
+  const date = dateTime.format("YYYY-MM-DD");
+  // Separate the time component
+  const time = dateTime.format("HH:mm:ss");
 
   const { id } = useParams();
 
-  const date1 = Date.now();
+  // const [status, setStatus] = useState(false);
+  const status = false;
   const [todo, setTodo] = useState("");
-  const [date, setDate] = useState("");
-  const [time, setTime] = useState("");
-  const [status, setStatus] = useState(false);
-  const [user_id, setUserId] = useState("");
   var handleNewTask = async () => {
     try {
       var newTask = await supabase
         .from("todo")
         .insert([
-          { user_id: id, todo: todo, date: date1, time: time, status: status },
+          { user_id: id, todo: todo, date: date, time: time, status: status },
         ]);
       console.log(newTask);
     } catch (error) {
@@ -30,10 +34,8 @@ export default function NewTodoComp() {
     var data = JSON.parse(sessionStorage.getItem("user_session"));
     if (data === null) {
       navigate("/login");
-    } else {
-      setUserId(id);
     }
-  }, []);
+  }, [navigate]);
 
   return (
     <div className="flex flex-col">

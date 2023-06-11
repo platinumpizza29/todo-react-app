@@ -3,8 +3,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import NewTodoComp from "../components/newTodoComp";
 import supabase from "../services/supabase";
 
-import { FaBeer } from "react-icons/fa";
-
 export default function HomePage() {
   const navigate = useNavigate();
   const { id } = useParams();
@@ -40,7 +38,7 @@ export default function HomePage() {
 
     fetchData();
 
-    const subscription = supabase
+    supabase
       .channel("custom-insert-channel")
       .on(
         "postgres_changes",
