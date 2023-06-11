@@ -48,10 +48,19 @@ export default function NewTodoComp() {
         className="input input-bordered w-full mb-4"
         onChange={(e) => setTodo(e.target.value)}
       />
-      <div className="flex flex-row">
+      <div className="flex flex-col">
         {/* future implementations */}
-        {/* <button className="btn btn-ghost">Select Date</button>
-        <button className="btn btn-ghost">Select Time</button> */}
+        <button className="btn btn-ghost">Select Date</button>
+        <button className="btn btn-ghost">Select Time</button>
+        <label htmlFor="todo" className="mb-4">
+          Description
+        </label>
+        <input
+          type="text"
+          placeholder="Description"
+          className="input input-bordered w-full mb-4"
+          onChange={(e) => setTodo(e.target.value)}
+        />
         <button className="btn btn-primary" onClick={handleNewTask}>
           Submit
         </button>

@@ -8,6 +8,21 @@ export default function HomePage() {
   const { id } = useParams();
   const [todos, setTodos] = useState([]);
 
+  function Greeting() {
+    const currentHour = new Date().getHours();
+    let greeting;
+
+    if (currentHour >= 0 && currentHour < 12) {
+      greeting = "Good Morning";
+    } else if (currentHour >= 12 && currentHour < 18) {
+      greeting = "Good Afternoon";
+    } else {
+      greeting = "Good Evening";
+    }
+
+    return <h1>{greeting}</h1>;
+  }
+
   var handleLogout = async () => {
     sessionStorage.removeItem("user_session");
     navigate("/login");
@@ -91,7 +106,7 @@ export default function HomePage() {
       </div>
       <div className="mx-4 md:mx-48 xl:mx-96">
         <div className="h-screen p-4" id="todo">
-          <h1 className="tracking-widest text-3xl font-bold">Todos</h1>
+          <h1 className="tracking-widest text-3xl font-bold">{Greeting()}</h1>
           <button
             className="btn btn-block btn-primary mt-4 text-white"
             onClick={() => window.my_modal_1.showModal()}
@@ -113,6 +128,12 @@ export default function HomePage() {
 
           <dialog id="my_modal_1" className="modal">
             <form method="dialog" className="modal-box">
+              <button
+                for="my-modal-3"
+                class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+              >
+                ✕
+              </button>
               <NewTodoComp />
             </form>
           </dialog>
